@@ -1,70 +1,10 @@
-# import streamlit as st
-# from dotenv import load_dotenv
-# import os
-# import google.generativeai as genai
-
-# # Load environment variables
-# load_dotenv()
-
-# # Configure Gemini API
-# genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-
-# # Initialize Gemini model
-# model = genai.GenerativeModel("gemini-1.0-pro")
-# chat = model.start_chat(history=[])
-
-# def get_gemini_response(question):
-#     response = chat.send_message(question, stream=True)
-#     return response
-
-# # Streamlit app
-# st.set_page_config(page_title="Gemini Chatbot", layout="wide")
-# st.header("Gemini Chatbot")
-
-# # Initialize session state for chat history
-# if 'chat_history' not in st.session_state:
-#     st.session_state['chat_history'] = []
-
-# # Chat input
-# input = st.text_input("You:", key="input")
-# if st.button("Send"):
-#     if input:
-#         # Get response from Gemini
-#         response = get_gemini_response(input)
-        
-#         # Add user input to chat history
-#         st.session_state['chat_history'].append({"role": "user", "content": input})
-        
-#         # Add Gemini response to chat history
-#         full_response = ""
-#         for chunk in response:
-#             full_response += chunk.text
-#         st.session_state['chat_history'].append({"role": "assistant", "content": full_response})
-
-# # Display chat history
-# for message in st.session_state['chat_history']:
-#     if message["role"] == "user":
-#         st.text_area("You:", value=message["content"], height=50, max_chars=None, key=f"user_{len(st.session_state['chat_history'])}")
-#     else:
-#         st.text_area("Gemini:", value=message["content"], height=100, max_chars=None, key=f"assistant_{len(st.session_state['chat_history'])}")
-
-# # Clear chat history button
-# if st.button("Clear Chat"):
-#     st.session_state['chat_history'] = []
-#     st.experimental_rerun()
 import streamlit as st
 import google.generativeai as genai
-from dotenv import load_dotenv
-import os
-
-# Load environment variables
-load_dotenv()
 
 # Configure Google Generative AI
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
 
 # Set up the model
-# model = genai.GenerativeModel('gemini-1.0-pro')
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 # Initialize chat history
